@@ -19,7 +19,7 @@ android {
 }
 
 ext {
-
+    recyclerViewVersion = '27.1.1'
 }
 
 dependencies {
@@ -29,4 +29,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //RecyclerView
+    implementation "com.android.support:recyclerview-v7:${recyclerViewVersion}"
+    implementation "com.android.support:design:${recyclerViewVersion}"
 }
