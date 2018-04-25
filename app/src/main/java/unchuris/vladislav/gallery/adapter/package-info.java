@@ -1,4 +1,4 @@
 /**
- *  This package contains adapters.
+ * This package contains adapters.
  */
 package unchuris.vladislav.gallery.adapter;
