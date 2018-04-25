@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 /**
  * The image model from the Yandex disk.
  */
-public class ImageYandexDisk implements Parcelable {
+public final class ImageYandexDisk implements Parcelable {
     /**
      * Image Name.
      */
@@ -32,6 +32,13 @@ public class ImageYandexDisk implements Parcelable {
      * Time of modified.
      */
     private DateTime modified;
+
+    /**
+     * Constructor.
+     */
+    public ImageYandexDisk() {
+
+    }
 
     /**
      * Constructor
