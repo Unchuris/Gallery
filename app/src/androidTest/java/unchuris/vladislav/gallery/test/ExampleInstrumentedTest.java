@@ -1,4 +1,4 @@
-package unchuris.vladislav.gallery;
+package unchuris.vladislav.gallery.test;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

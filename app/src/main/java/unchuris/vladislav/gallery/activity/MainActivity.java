@@ -11,6 +11,11 @@ import unchuris.vladislav.gallery.R;
  */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     *  Public folder on Yandex disk.
+     */
+    public static final String PUBLIC_FOLDER_URL = "https://yadi.sk/d/2juJHwM13UjXGw";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

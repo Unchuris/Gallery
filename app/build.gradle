@@ -20,6 +20,7 @@ android {
 
 ext {
     recyclerViewVersion = '27.1.1'
+    volleyVersion = '1.1.0'
 }
 
 dependencies {
@@ -33,4 +34,7 @@ dependencies {
     //RecyclerView
     implementation "com.android.support:recyclerview-v7:${recyclerViewVersion}"
     implementation "com.android.support:design:${recyclerViewVersion}"
+
+    //Volley
+    implementation "com.android.volley:volley:${volleyVersion}"
 }
