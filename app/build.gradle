@@ -25,6 +25,7 @@ ext {
     recyclerViewVersion = '27.1.1'
     volleyVersion = '1.1.0'
     jodaTimeVersion = '2.9.9'
+    glideVersion = '4.7.1'
 }
 
 dependencies {
@@ -48,6 +49,10 @@ dependencies {
 
     //Volley
     implementation "com.android.volley:volley:${volleyVersion}"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:${glideVersion}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
 
 
 }

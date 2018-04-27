@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 
 import unchuris.vladislav.gallery.R;
+import unchuris.vladislav.gallery.adapter.GalleryAdapter;
 import unchuris.vladislav.gallery.api.IApiGenerationLink;
 import unchuris.vladislav.gallery.api.IParsing;
 import unchuris.vladislav.gallery.api.yandex.ParsingResponse;
@@ -53,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     private ProgressDialog pDialog;
 
+    private GalleryAdapter mAdapter;
+
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
 
         pDialog = new ProgressDialog(this);
         images = new ArrayList<>();
@@ -81,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
 
     @Override
     public void response(ArrayList<ImageYandexDisk> response) {
-        //TO DO
+        ArrayList<String> imagesURL = new ArrayList<>();
+        for(ImageYandexDisk item : response){
+            imagesURL.add(item.getPreview());
+        }
+        mAdapter = new GalleryAdapter(getApplicationContext(), imagesURL);
+        recyclerView.setAdapter(mAdapter);
     }
 }
