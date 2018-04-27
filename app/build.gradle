@@ -33,6 +33,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     implementation "joda-time:joda-time:${jodaTimeVersion}"
+    testImplementation 'org.json:json:20140107'
 
     //RecyclerView
     implementation "com.android.support:recyclerview-v7:${recyclerViewVersion}"
@@ -40,4 +41,6 @@ dependencies {
 
     //Volley
     implementation "com.android.volley:volley:${volleyVersion}"
+
+
 }

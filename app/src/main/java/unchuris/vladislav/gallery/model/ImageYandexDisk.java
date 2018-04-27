@@ -170,4 +170,36 @@ public final class ImageYandexDisk implements Parcelable {
         dest.writeSerializable(created);
         dest.writeSerializable(modified);
     }
+
+    /**
+     * Override equals for ImageYandexDisk.
+     * @param o Object
+     * @return boolean.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ImageYandexDisk that = (ImageYandexDisk) o;
+        return size.equals(that.size) && (name != null ? name.equals(that.name)
+                : that.name == null) && (created != null ? created.equals(that.created)
+                : that.created == null) && (modified != null ? modified.equals(that.modified)
+                : that.modified == null) && (preview != null ? preview.equals(that.preview)
+                : that.preview == null);
+    }
+
+    /**
+     * Override hashCode for ImageYandexDisk.
+     * @return int.
+     */
+    @Override
+    public int hashCode() {
+        int result = (name != null ? name.hashCode() : 0);
+        result = 31 * result + (created != null ? created.hashCode() : 0);
+        result = 31 * result + (modified != null ? modified.hashCode() : 0);
+        result = 31 * result + (preview != null ? preview.hashCode() : 0);
+        result = 31 * result + size;
+        return result;
+    }
 }

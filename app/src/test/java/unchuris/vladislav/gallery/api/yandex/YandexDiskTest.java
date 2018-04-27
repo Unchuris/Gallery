@@ -17,7 +17,6 @@ public class YandexDiskTest {
     @Before
     public void setUp() {
         generationLink = new YandexDisk();
-
     }
 
     @Test
@@ -29,4 +28,5 @@ public class YandexDiskTest {
                 "?public_key=https://yadi.sk/d/2juJHwM13UjXGw" +
                 "&preview_size=M", link);
     }
+
 }
