@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import unchuris.vladislav.gallery.api.IParsing;
 import unchuris.vladislav.gallery.model.ImageYandexDisk;
