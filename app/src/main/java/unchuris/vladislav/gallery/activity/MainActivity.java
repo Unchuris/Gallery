@@ -24,11 +24,6 @@ import unchuris.vladislav.gallery.utils.IResponseCallback;
  */
 public class MainActivity extends AppCompatActivity implements IResponseCallback<ImageYandexDisk> {
     /**
-     * Log tag.
-     */
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    /**
      * Public folder on Yandex disk.
      */
     private static final String PUBLIC_FOLDER_URL = "https://yadi.sk/d/2juJHwM13UjXGw";
@@ -38,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     private static final Integer SPAN_COUNT = 2;
 
+    /**
+     * Instance the recyclerView.
+     */
     private RecyclerView recyclerView;
 
     @Override
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
 
         //Full link to the public folder.
         String pathToDownload = yd.getPublicLink(PUBLIC_FOLDER_URL,
-                "preview_size=M&preview_crop=true");
+                "preview_size=M&preview_crop=true&limit=200");
 
         IParsing<ImageYandexDisk> parsing = new ParsingResponse();
         Fetcher<ImageYandexDisk> iyd = new Fetcher<>(this, this);

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Gallery</string>
     <string name="appbar_scrolling_view_behavior">AppBar</string>
+    <string name="ImgViewContDescription">Image</string>
 </resources>

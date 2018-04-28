@@ -18,7 +18,7 @@ public class ParsingResponse implements IParsing<ImageYandexDisk> {
     /**
      * DateTimeFormatter based on the ISO8601 standard.
      */
-    private DateTimeFormatter DATE_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
+    private static final DateTimeFormatter DATE_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
 
     /**
      *
