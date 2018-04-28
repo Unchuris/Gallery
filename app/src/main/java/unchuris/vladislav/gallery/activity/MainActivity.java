@@ -23,7 +23,7 @@ import unchuris.vladislav.gallery.utils.IResponseCallback;
 /**
  * Activity for display the main screen, which contains an image gallery.
  */
-public class MainActivity extends AppCompatActivity implements IResponseCallback<ImageYandexDisk>{
+public class MainActivity extends AppCompatActivity implements IResponseCallback<ImageYandexDisk> {
     /**
      * Log tag.
      */
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     }
 
     @Override
-    public void response(ArrayList<ImageYandexDisk> response) {
+    public void response(final ArrayList<ImageYandexDisk> response) {
         ArrayList<String> imagesURL = new ArrayList<>();
-        for(ImageYandexDisk item : response){
+        for (ImageYandexDisk item : response) {
             imagesURL.add(item.getPreview());
         }
         mAdapter = new GalleryAdapter(getApplicationContext(), imagesURL);
