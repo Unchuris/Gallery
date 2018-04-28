@@ -1,5 +1,7 @@
 package unchuris.vladislav.gallery.utils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Response;
@@ -20,18 +22,26 @@ public class Fetcher<T> {
     /**
      * Log tag.
      */
-    private final String TAG = Fetcher.class.getSimpleName();
+    private static final String TAG = Fetcher.class.getSimpleName();
+
     /**
      * Instance the callback.
      */
     private IResponseCallback<T> callback;
 
     /**
+     * Progress dialog.
+     */
+    private ProgressDialog pDialog;
+
+    /**
      * Constructor.
+     * @param context context.
      * @param callback callback.
      */
-    public Fetcher(IResponseCallback<T> callback){
+    public Fetcher(final Context context, final IResponseCallback<T> callback) {
         this.callback = callback;
+        pDialog = new ProgressDialog(context);
     }
 
     /**
@@ -40,10 +50,13 @@ public class Fetcher<T> {
      * @param parsing parse the response as json.
      */
     public void fetchImages(final String pathToDownload, final IParsing<T> parsing) {
+        pDialog.setMessage("Downloading json...");
+        pDialog.show();
         StringRequest req = new StringRequest(pathToDownload,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
+                        pDialog.hide();
                         try {
                             callback.response(parsing.imageListParser(new JSONObject(response)));
                         } catch (JSONException e) {
@@ -54,6 +67,7 @@ public class Fetcher<T> {
             @Override
             public void onErrorResponse(final VolleyError error) {
                 Log.e(TAG, "Error: " + error.getMessage());
+                pDialog.hide();
             }
         });
         AppController.getInstance().addToRequestQueue(req);

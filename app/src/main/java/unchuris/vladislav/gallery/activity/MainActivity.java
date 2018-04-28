@@ -1,6 +1,5 @@
 package unchuris.vladislav.gallery.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -39,24 +38,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     private static final Integer SPAN_COUNT = 2;
 
-    /**
-     * Array with images.
-     */
-    private ArrayList<ImageYandexDisk> images;
-
-    /**
-     * Full link to the public folder.
-     */
-    private String pathToDownload = "";
-
-    /**
-     * Progress dialog.
-     */
-    private ProgressDialog pDialog;
-
-    private GalleryAdapter mAdapter;
-
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -68,29 +50,33 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        pDialog = new ProgressDialog(this);
-        images = new ArrayList<>();
-
         RecyclerView.LayoutManager mLayoutManager =
                 new GridLayoutManager(getApplicationContext(), SPAN_COUNT);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         IApiGenerationLink yd = new YandexDisk();
-        pathToDownload = yd.getPublicLink(PUBLIC_FOLDER_URL, "preview_size=M&preview_crop=true");
 
-        final IParsing<ImageYandexDisk> parsing = new ParsingResponse();
-        Fetcher<ImageYandexDisk> iyd = new Fetcher<>(this);
+        //Full link to the public folder.
+        String pathToDownload = yd.getPublicLink(PUBLIC_FOLDER_URL,
+                "preview_size=M&preview_crop=true");
+
+        IParsing<ImageYandexDisk> parsing = new ParsingResponse();
+        Fetcher<ImageYandexDisk> iyd = new Fetcher<>(this, this);
         iyd.fetchImages(pathToDownload, parsing);
     }
 
+    /**
+     * Instantiate the gallery adapter.
+     * @param response ArrayList<Model> for postback.
+     */
     @Override
     public void response(final ArrayList<ImageYandexDisk> response) {
         ArrayList<String> imagesURL = new ArrayList<>();
         for (ImageYandexDisk item : response) {
             imagesURL.add(item.getPreview());
         }
-        mAdapter = new GalleryAdapter(getApplicationContext(), imagesURL);
-        recyclerView.setAdapter(mAdapter);
+        GalleryAdapter adapter = new GalleryAdapter(getApplicationContext(), imagesURL);
+        recyclerView.setAdapter(adapter);
     }
 }
