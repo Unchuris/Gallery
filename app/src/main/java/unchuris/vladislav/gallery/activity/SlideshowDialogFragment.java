@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,7 @@ import unchuris.vladislav.gallery.model.ImageYandexDisk;
 /**
  * SlideshowDialogFragment.
  */
-public class SlideshowDialogFragment extends DialogFragment {
+public class SlideshowDialogFragment extends DialogFragment  {
     /**
      * Log tag.
      */
@@ -52,6 +54,11 @@ public class SlideshowDialogFragment extends DialogFragment {
         return new SlideshowDialogFragment();
     }
 
+    /**
+     * Shows the number of images and the total number.
+     */
+    private TextView lblCount;
+
     @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -59,6 +66,7 @@ public class SlideshowDialogFragment extends DialogFragment {
                              final Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
         viewPager = v.findViewById(R.id.viewpager);
+        lblCount = v.findViewById(R.id.lbl_count);
         images = new ArrayList<>();
 
         if ((getArguments() != null) && (getArguments().getSerializable("images") != null)) {
@@ -78,6 +86,15 @@ public class SlideshowDialogFragment extends DialogFragment {
 
         viewPagerAdapter = new ViewPagerAdapter(getActivity(), imagesURL);
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+        Button newGameButton = v.findViewById(R.id.toast);
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                //TO do
+            }
+        });
 
         setCurrentItem(selectedPosition);
 
@@ -90,6 +107,15 @@ public class SlideshowDialogFragment extends DialogFragment {
      */
     private void setCurrentItem(final int position) {
         viewPager.setCurrentItem(position, false);
+        displayNumber(selectedPosition);
+    }
+
+    /**
+     * Shows the number of images and the total number.
+     * @param position position number.
+     */
+    private void displayNumber(final int position) {
+        lblCount.setText((position + 1) + " of " + images.size());
     }
 
     /**
@@ -101,5 +127,28 @@ public class SlideshowDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
     }
+
+    /**
+     * On page change listener.
+     */
+    private ViewPager.OnPageChangeListener viewPagerPageChangeListener =
+            new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(final int position) {
+            selectedPosition = position;
+            displayNumber(position);
+        }
+
+        @Override
+        public void onPageScrolled(final int arg0, final float arg1, final int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(final int arg0) {
+
+        }
+    };
 
 }
