@@ -117,6 +117,16 @@ public final class ImageYandexDisk implements Parcelable {
         return preview;
     }
 
+
+    /**
+     * Get preview link.
+     * @param size size (M, L, XL, XXL, XXXL)
+     * @return preview link.
+     */
+    public String getPreview(String size) {
+        return preview.replace("?", "?size="+size+"&");
+    }
+
     /**
      * Set preview link.
      * @param preview preview link.
@@ -124,6 +134,7 @@ public final class ImageYandexDisk implements Parcelable {
     public void setPreview(final String preview) {
         this.preview = preview;
     }
+
 
     /**
      * Get time of creation.

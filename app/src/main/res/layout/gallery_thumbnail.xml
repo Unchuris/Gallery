@@ -11,6 +11,5 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:contentDescription="@string/ImgViewContDescription"
-        android:padding="3dp"
         android:scaleType="centerCrop" />
 </unchuris.vladislav.gallery.helper.SquareLayout>
