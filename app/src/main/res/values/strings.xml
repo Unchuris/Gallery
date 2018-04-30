@@ -13,4 +13,5 @@
     <string name="noInternet">Could not connect to the Internet.</string>
     <string name="connectionError">Connection error.</string>
     <string name="reload">Reload</string>
+    <string name="isEmpty">The list is empty</string>
 </resources>

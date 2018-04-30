@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     /**
      * Instance the textView.
      */
-    private TextView noInternet;
+    private TextView textView;
 
     /**
      * Button to reload.
@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
                 download();
             } else {
                 reloadButton = findViewById(R.id.reload_button);
-                noInternet = findViewById(R.id.no_internet);
-                noInternet.setVisibility(View.VISIBLE);
+                textView = findViewById(R.id.message);
+                textView.setVisibility(View.VISIBLE);
                 reloadButton.setVisibility(View.VISIBLE);
             }
         } else {
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     public void reloadDownload(final View view) {
         if (InternetConnection.hasConnection(this)) {
-            noInternet.setVisibility(View.GONE);
+            textView.setVisibility(View.GONE);
             reloadButton.setVisibility(View.GONE);
             download();
         } else {
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     private void download() {
         IApiGenerationLink yd = new YandexDisk();
         pathToDownload = yd.getPublicLink(PUBLIC_FOLDER_URL,
-                "preview_size=M&preview_crop=true&limit=200");
+                "preview_size=M&preview_crop=true&limit=100&sort=modified");
         IParsing<ImageYandexDisk> parsing = new ParsingResponse();
         Fetcher<ImageYandexDisk> iyd = new Fetcher<>(this, this);
         // When the download finishes calling "response".
@@ -199,6 +199,19 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         recyclerView.setAdapter(
                 new GalleryAdapter(getApplicationContext(), getImagesURL(response))
         );
+        listIsEmpty(response);
+    }
+
+    /**
+     * Check for empty list.
+     * @param img array from the images.
+     */
+    private void listIsEmpty(final ArrayList<ImageYandexDisk> img) {
+        if (img.isEmpty()) {
+            textView = findViewById(R.id.message);
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(R.string.isEmpty);
+        }
     }
 
     /**

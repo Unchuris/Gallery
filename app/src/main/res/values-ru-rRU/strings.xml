@@ -11,4 +11,5 @@
     <string name="noInternet">Не удалось установить соединение с интернетом.</string>
     <string name="connectionError">Ошибка подключения.</string>
     <string name="reload">Обновить</string>
+    <string name="isEmpty">Список пуст</string>
 </resources>
