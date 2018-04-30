@@ -15,21 +15,20 @@
         android:id="@+id/lbl_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonShare"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="122dp"
+        android:layout_alignTop="@+id/buttonShare"
+        android:layout_centerHorizontal="true"
         android:textColor="@android:color/white"
-        android:layout_toStartOf="@+id/buttonShare"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonShare"
-        android:layout_width="24dp"
+        android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/buttonInfo"
-        android:layout_marginEnd="116dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="71dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/ic_share_white" />
 
     <Button
@@ -38,8 +37,9 @@
         android:layout_height="25dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="75dp"
-        android:layout_marginTop="16dp"
+        android:layout_toStartOf="@+id/buttonShare"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/ic_info_white" />
 
 </RelativeLayout>
