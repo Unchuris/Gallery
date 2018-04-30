@@ -3,4 +3,11 @@
     <string name="appbar_scrolling_view_behavior">AppBar</string>
     <string name="ImgViewContDescription">Image</string>
     <string name="of">of</string>
+    <string name="titleAlertDialogFullscreen">The details: </string>
+    <string name="buttonTextOK">OK</string>
+    <string name="fileText">File:</string>
+    <string name="sizeText">Size:</string>
+    <string name="KB">KB</string>
+    <string name="timeCreation">Time of creation:</string>
+    <string name="timeChange">Time of modification:</string>
 </resources>

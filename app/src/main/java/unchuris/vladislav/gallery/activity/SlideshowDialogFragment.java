@@ -174,10 +174,10 @@ public class SlideshowDialogFragment extends DialogFragment  {
     private void showAlert(final Context context, final ImageYandexDisk imageYandexDisk) {
         Integer style = android.R.style.Theme_Holo_Dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(context, style);
-        builder.setTitle("Детали: ")
+        builder.setTitle(R.string.titleAlertDialogFullscreen)
                 .setMessage(getInfo(imageYandexDisk))
                 .setCancelable(true)
-                .setNegativeButton("OK",
+                .setNegativeButton(R.string.buttonTextOK,
                         (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.setOnShowListener(
@@ -195,10 +195,10 @@ public class SlideshowDialogFragment extends DialogFragment  {
         DateTimeFormatter longDate = DateTimeFormat.forPattern("d MMMM yyyy");
         String newLine = "\n\n";
         Integer size = image.getSize() / 1024;
-        return "\nФайл: " + image.getName() + newLine
-                + "Размер: " + size + " KB" + newLine
-                + "Время создания: \n" + longDate.print(image.getDateTimeCreated()) + newLine
-                + "Время изменения: \n" + longDate.print(image.getDateTimeModified()) + newLine
+        return "\n" + getString(R.string.fileText) + " " + image.getName() + newLine
+                + getString(R.string.sizeText) + " " + size + getString(R.string.KB) + newLine
+                + getString(R.string.timeCreation) + "\n" + longDate.print(image.getDateTimeCreated()) + newLine
+                + getString(R.string.timeChange) + "\n" + longDate.print(image.getDateTimeModified()) + newLine
                 ;
     }
 
