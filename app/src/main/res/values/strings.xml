@@ -10,4 +10,7 @@
     <string name="KB">KB</string>
     <string name="timeCreation">Time of creation:</string>
     <string name="timeChange">Time of modification:</string>
+    <string name="noInternet">Could not connect to the Internet.</string>
+    <string name="connectionError">Connection error.</string>
+    <string name="reload">Reload</string>
 </resources>

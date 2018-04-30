@@ -9,6 +9,31 @@
     android:background="@color/colorBackground"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:id="@+id/no_internet"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/noInternet"
+        android:visibility="gone"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/reload_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="59dp"
+        android:onClick="reloadDownload"
+        android:text="@string/reload"
+        android:visibility="gone"
+        android:background="@color/colorTransparent"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="428dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

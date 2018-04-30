@@ -8,4 +8,7 @@
     <string name="KB">КБ</string>
     <string name="timeCreation">Время создания:</string>
     <string name="timeChange">Время изменения:</string>
+    <string name="noInternet">Не удалось установить соединение с интернетом.</string>
+    <string name="connectionError">Ошибка подключения.</string>
+    <string name="reload">Обновить</string>
 </resources>

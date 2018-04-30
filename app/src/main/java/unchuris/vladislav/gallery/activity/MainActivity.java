@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,7 @@ import unchuris.vladislav.gallery.model.ImageYandexDisk;
 import unchuris.vladislav.gallery.utils.Fetcher;
 import unchuris.vladislav.gallery.utils.IClickListener;
 import unchuris.vladislav.gallery.utils.IResponseCallback;
+import unchuris.vladislav.gallery.utils.InternetConnection;
 import unchuris.vladislav.gallery.utils.RecyclerTouchListener;
 
 /**
@@ -69,6 +73,16 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     private ArrayList<ImageYandexDisk> images = new ArrayList<>();
 
+    /**
+     * Instance the textView.
+     */
+    private TextView noInternet;
+
+    /**
+     * Button to reload.
+     */
+    private Button reloadButton;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,11 +128,33 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     private void init(final ArrayList<ImageYandexDisk> img) {
         if (img != null && img.isEmpty()) {
-            download();
+            if (InternetConnection.hasConnection(this)) {
+                download();
+            } else {
+                reloadButton = findViewById(R.id.reload_button);
+                noInternet = findViewById(R.id.no_internet);
+                noInternet.setVisibility(View.VISIBLE);
+                reloadButton.setVisibility(View.VISIBLE);
+            }
         } else {
             recyclerView.setAdapter(
                     new GalleryAdapter(getApplicationContext(), getImagesURL(img))
             );
+        }
+    }
+
+    /**
+     * Reload download.
+     * @param view view.
+     */
+    public void reloadDownload(final View view) {
+        if (InternetConnection.hasConnection(this)) {
+            noInternet.setVisibility(View.GONE);
+            reloadButton.setVisibility(View.GONE);
+            download();
+        } else {
+            Toast myToast = Toast.makeText(this, R.string.connectionError, Toast.LENGTH_SHORT);
+            myToast.show();
         }
     }
 
