@@ -2,6 +2,7 @@ package unchuris.vladislav.gallery.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -94,11 +95,19 @@ public class SlideshowDialogFragment extends DialogFragment  {
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        Button newGameButton = v.findViewById(R.id.buttonInfo);
-        newGameButton.setOnClickListener(new View.OnClickListener() {
+        Button buttonInfo = v.findViewById(R.id.buttonInfo);
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 showAlert(getContext(), images.get(selectedPosition));
+            }
+        });
+
+        Button buttonShare = v.findViewById(R.id.buttonShare);
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                share(images.get(selectedPosition).getPreview("XXXL"));
             }
         });
 
@@ -192,5 +201,17 @@ public class SlideshowDialogFragment extends DialogFragment  {
                 + "Время изменения: \n" + longDate.print(image.getDateTimeModified()) + newLine
                 ;
     }
+
+    /**
+     * Share url.
+     * @param url string.
+     */
+    private void share(final String url) {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
 
 }
