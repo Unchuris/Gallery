@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import unchuris.vladislav.gallery.R;
 import unchuris.vladislav.gallery.api.IParsing;
 import unchuris.vladislav.gallery.app.AppController;
 
@@ -35,6 +36,11 @@ public class Fetcher<T> {
     private ProgressDialog pDialog;
 
     /**
+     * Context.
+     */
+    private Context context;
+
+    /**
      * Constructor.
      * @param context context.
      * @param callback callback.
@@ -42,6 +48,7 @@ public class Fetcher<T> {
     public Fetcher(final Context context, final IResponseCallback<T> callback) {
         this.callback = callback;
         pDialog = new ProgressDialog(context);
+        this.context = context;
     }
 
     /**
@@ -61,12 +68,16 @@ public class Fetcher<T> {
                             callback.response(parsing.imageListParser(new JSONObject(response)));
                         } catch (JSONException e) {
                             Log.e(TAG, "Json parsing error: " + e.getMessage());
+                            callback.errorMessage(context.getString(R.string.error) +
+                                    "Json parsing error: " + e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(final VolleyError error) {
                 Log.e(TAG, "Error: " + error.getMessage());
+                callback.errorMessage(context.getString(R.string.error)
+                        + "Error:" + error.getMessage());
                 pDialog.hide();
             }
         });

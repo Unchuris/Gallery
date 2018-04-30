@@ -1,11 +1,15 @@
 package unchuris.vladislav.gallery.api.yandex;
 
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
 
 import unchuris.vladislav.gallery.api.IApiGenerationLink;
+import unchuris.vladislav.gallery.model.ImageYandexDisk;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class YandexDiskTest {
 
@@ -13,6 +17,7 @@ public class YandexDiskTest {
      * GenerationLink.
      */
     private IApiGenerationLink generationLink;
+
 
     @Before
     public void setUp() {
@@ -27,6 +32,12 @@ public class YandexDiskTest {
         assertEquals("https://cloud-api.yandex.net/v1/disk/public/resources" +
                 "?public_key=https://yadi.sk/d/2juJHwM13UjXGw" +
                 "&preview_size=M", link);
+    }
+
+    @Test
+    public void testGetQueryParameters() {
+        String rez = generationLink.getQueryParameters("M", 150, "modified");
+        assertEquals("preview_size=M&preview_crop=true&limit=150&sort=modified",rez);
     }
 
 }

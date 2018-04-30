@@ -1,14 +1,12 @@
 package unchuris.vladislav.gallery.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +26,10 @@ import unchuris.vladislav.gallery.model.ImageYandexDisk;
  * SlideshowDialogFragment.
  */
 public class SlideshowDialogFragment extends DialogFragment  {
-    /**
-     * Log tag.
-     */
-    private static final String TAG = SlideshowDialogFragment.class.getSimpleName();
+//    /**
+//     * Log tag.
+//     */
+//    private static final String TAG = SlideshowDialogFragment.class.getSimpleName();
 
     /**
      * Instantiate the viewPager.
@@ -47,6 +45,16 @@ public class SlideshowDialogFragment extends DialogFragment  {
      * Instantiate the viewPagerAdapter.
      */
     private ViewPagerAdapter viewPagerAdapter;
+
+    /**
+     * Parameter for get a full screen image.
+     */
+    private String fullscreenSize = "XXXL";
+
+    /**
+     * The number of helper for resizing.
+     */
+    private static final Integer RESIZING = 1024;
 
     /**
      * Selected position.
@@ -76,19 +84,19 @@ public class SlideshowDialogFragment extends DialogFragment  {
         lblCount = v.findViewById(R.id.lbl_count);
         images = new ArrayList<>();
 
-        if ((getArguments() != null) && (getArguments().getSerializable("images") != null)) {
-            images = (ArrayList<ImageYandexDisk>) getArguments().getSerializable("images");
+        if ((getArguments() != null) && (getArguments().getSerializable(MainActivity.IMAGES_RESOURCES) != null)) {
+            images = (ArrayList<ImageYandexDisk>) getArguments().getSerializable(MainActivity.IMAGES_RESOURCES);
         }
 
         selectedPosition = getArguments() != null ? getArguments().getInt("position") : 0;
 
-        Log.e(TAG, "position: " + selectedPosition);
-        Log.e(TAG, "images size: " + images.size());
+//        Log.e(TAG, "position: " + selectedPosition);
+//        Log.e(TAG, "images size: " + images.size());
 
         ArrayList<String> imagesURL = new ArrayList<>();
 
         for (ImageYandexDisk item : images) {
-            imagesURL.add(item.getPreview("XXXL"));
+            imagesURL.add(item.getPreview(fullscreenSize));
         }
 
         viewPagerAdapter = new ViewPagerAdapter(getActivity(), imagesURL);
@@ -96,20 +104,12 @@ public class SlideshowDialogFragment extends DialogFragment  {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         Button buttonInfo = v.findViewById(R.id.buttonInfo);
-        buttonInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                showAlert(getContext(), images.get(selectedPosition));
-            }
-        });
+        buttonInfo.setOnClickListener(view ->
+                showAlert(getContext(), images.get(selectedPosition)));
 
         Button buttonShare = v.findViewById(R.id.buttonShare);
-        buttonShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                share(images.get(selectedPosition).getPreview("XXXL"));
-            }
-        });
+        buttonShare.setOnClickListener(view ->
+                share(images.get(selectedPosition).getPreview(fullscreenSize)));
 
         setCurrentItem(selectedPosition);
 
@@ -194,7 +194,7 @@ public class SlideshowDialogFragment extends DialogFragment  {
     private String getInfo(final ImageYandexDisk image) {
         DateTimeFormatter longDate = DateTimeFormat.forPattern("d MMMM yyyy");
         String newLine = "\n\n";
-        Integer size = image.getSize() / 1024;
+        Integer size = image.getSize() / RESIZING;
         return "\n" + getString(R.string.fileText) + " " + image.getName() + newLine
                 + getString(R.string.sizeText) + " " + size + getString(R.string.KB) + newLine
                 + getString(R.string.timeCreation) + "\n" + longDate.print(image.getDateTimeCreated()) + newLine
@@ -212,6 +212,4 @@ public class SlideshowDialogFragment extends DialogFragment  {
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
-
-
 }

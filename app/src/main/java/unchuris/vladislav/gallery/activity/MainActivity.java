@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     private Integer spanCount = SPAN_COUNT_PORTRAIT;
 
     /**
-     * key for accessing an array.
+     * Key for accessing an array.
      */
     public static final String IMAGES_RESOURCES = "images";
 
@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      * Instance the recyclerView.
      */
     private RecyclerView recyclerView;
+
+    /**
+     * Download limit.
+     */
+    private final Integer limit = 100;
 
     /**
      * Full link to the public folder.
@@ -104,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         addOnItemTouchListener();
     }
 
+    /**
+     * Set the number of columns for the gallery.
+     */
     private void initDisplayParams() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -182,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     private void download() {
         IApiGenerationLink yd = new YandexDisk();
         pathToDownload = yd.getPublicLink(PUBLIC_FOLDER_URL,
-                "preview_size=M&preview_crop=true&limit=100&sort=modified");
+                yd.getQueryParameters("M", limit, "modified"));
         IParsing<ImageYandexDisk> parsing = new ParsingResponse();
         Fetcher<ImageYandexDisk> iyd = new Fetcher<>(this, this);
         // When the download finishes calling "response".
@@ -200,6 +208,17 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
                 new GalleryAdapter(getApplicationContext(), getImagesURL(response))
         );
         listIsEmpty(response);
+    }
+
+    /**
+     * Error message.
+     * @param message message about errors.
+     */
+    @Override
+    public void errorMessage(final String message) {
+        textView = findViewById(R.id.message);
+        textView.setText(message);
+        textView.setVisibility(View.VISIBLE);
     }
 
     /**

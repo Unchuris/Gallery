@@ -120,11 +120,11 @@ public final class ImageYandexDisk implements Parcelable {
 
     /**
      * Get preview link.
-     * @param size size (M, L, XL, XXL, XXXL)
+     * @param stringSize size (M, L, XL, XXL, XXXL)
      * @return preview link.
      */
-    public String getPreview(String size) {
-        return preview.replace("?", "?size="+size+"&");
+    public String getPreview(final String stringSize) {
+        return preview.replace("?", "?size=" + stringSize + "&");
     }
 
     /**
@@ -188,9 +188,13 @@ public final class ImageYandexDisk implements Parcelable {
      * @return boolean.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ImageYandexDisk that = (ImageYandexDisk) o;
         return size.equals(that.size) && (name != null ? name.equals(that.name)
