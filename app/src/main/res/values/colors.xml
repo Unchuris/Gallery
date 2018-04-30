@@ -5,4 +5,5 @@
     <color name="colorAccent">#c158dc</color>
     <color name="colorBackground">#e1e2e1</color>
     <color name="colorTransparent">#00e1e2e2</color>
+    <color name="colorFullscreenButton">#FFFFFF</color>
 </resources>

@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     private void initDisplayParams() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Integer mImageWidth = displayMetrics.widthPixels;
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             spanCount = SPAN_COUNT_LANDSCAPE;
         }

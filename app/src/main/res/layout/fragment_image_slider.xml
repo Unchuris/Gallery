@@ -15,15 +15,16 @@
         android:id="@+id/lbl_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/toast"
+        android:layout_alignBaseline="@+id/buttonInfo"
         android:layout_alignParentStart="true"
         android:layout_marginStart="122dp"
         android:textColor="@android:color/white"
+        android:layout_toStartOf="@+id/buttonInfo"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/toast"
+        android:id="@+id/buttonInfo"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentEnd="true"
