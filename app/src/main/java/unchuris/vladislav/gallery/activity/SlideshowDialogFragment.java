@@ -23,14 +23,9 @@ import unchuris.vladislav.gallery.adapter.ViewPagerAdapter;
 import unchuris.vladislav.gallery.model.ImageYandexDisk;
 
 /**
- * SlideshowDialogFragment.
+ * DialogFragment for display image in full screen.
  */
 public class SlideshowDialogFragment extends DialogFragment  {
-//    /**
-//     * Log tag.
-//     */
-//    private static final String TAG = SlideshowDialogFragment.class.getSimpleName();
-
     /**
      * Instantiate the viewPager.
      */
