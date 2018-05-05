@@ -85,9 +85,6 @@ public class SlideshowDialogFragment extends DialogFragment  {
 
         selectedPosition = getArguments() != null ? getArguments().getInt("position") : 0;
 
-//        Log.e(TAG, "position: " + selectedPosition);
-//        Log.e(TAG, "images size: " + images.size());
-
         ArrayList<String> imagesURL = new ArrayList<>();
 
         for (ImageYandexDisk item : images) {

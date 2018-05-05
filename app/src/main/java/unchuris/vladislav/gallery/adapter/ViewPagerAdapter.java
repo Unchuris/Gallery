@@ -35,7 +35,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     /**
      * Size of thumbnail relative to original size.
      */
-    private static final float THUMBNAIL_SIZE = 0.1f;
+    private final float thumbnailSize = 0.1f;
 
     /**
      * Instantiate the LayoutInflater.
@@ -70,7 +70,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         Glide.with(context)
                 .load(imagesURL.get(position))
-                .thumbnail(THUMBNAIL_SIZE)
+                .thumbnail(thumbnailSize)
                 .transition(withCrossFade())
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(imageViewPreview);

@@ -35,7 +35,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     /**
      * Size of thumbnail relative to original size.
      */
-    private static final float THUMBNAIL_SIZE = 0.1f;
+    private final float thumbnailSize = 0.1f;
 
     /**
      * Provide a reference to the views for each data item.
@@ -89,7 +89,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Glide.with(context)
                 .load(imagesURL.get(position))
-                .thumbnail(THUMBNAIL_SIZE)
+                .thumbnail(thumbnailSize)
                 .transition(withCrossFade())
                 .apply(new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
