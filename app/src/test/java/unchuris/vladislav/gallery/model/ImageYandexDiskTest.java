@@ -5,8 +5,6 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 

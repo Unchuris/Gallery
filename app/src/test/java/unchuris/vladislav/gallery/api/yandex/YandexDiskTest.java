@@ -1,15 +1,11 @@
 package unchuris.vladislav.gallery.api.yandex;
 
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
 
 import unchuris.vladislav.gallery.api.IApiGenerationLink;
-import unchuris.vladislav.gallery.model.ImageYandexDisk;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 public class YandexDiskTest {
 

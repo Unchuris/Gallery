@@ -63,7 +63,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        assert layoutInflater != null;
+
         View view = layoutInflater.inflate(R.layout.image_fullscreen_preview, container, false);
 
         ImageView imageViewPreview = view.findViewById(R.id.image_preview);
