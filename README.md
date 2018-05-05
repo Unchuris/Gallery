@@ -21,4 +21,4 @@
 * [Google.Volley](https://developer.android.com/training/volley/)
 * [Glide](https://github.com/bumptech/glide)
 * [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView)
-* [PhotoView] (https://github.com/chrisbanes/PhotoView)
+* [PhotoView](https://github.com/chrisbanes/PhotoView)
