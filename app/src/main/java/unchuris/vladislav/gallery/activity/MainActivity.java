@@ -24,18 +24,15 @@ import unchuris.vladislav.gallery.api.yandex.ParsingResponse;
 import unchuris.vladislav.gallery.api.yandex.YandexDisk;
 import unchuris.vladislav.gallery.model.ImageYandexDisk;
 import unchuris.vladislav.gallery.utils.Fetcher;
-import unchuris.vladislav.gallery.utils.IClickListener;
+import unchuris.vladislav.gallery.utils.IOnClickItem;
 import unchuris.vladislav.gallery.utils.IResponseCallback;
 import unchuris.vladislav.gallery.utils.InternetConnection;
-import unchuris.vladislav.gallery.utils.RecyclerTouchListener;
 
 /**
  * Activity for display the main screen, which contains an image gallery.
  */
-public class MainActivity extends AppCompatActivity implements IResponseCallback<ImageYandexDisk> {
-    /**
-     * Public folder on Yandex disk.
-     */
+public class MainActivity extends AppCompatActivity implements IResponseCallback<ImageYandexDisk>, IOnClickItem {
+
     private static final String PUBLIC_FOLDER_URL = "https://yadi.sk/d/2juJHwM13UjXGw";
 
     /**
@@ -53,40 +50,24 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
      */
     private Integer spanCount = SPAN_COUNT_PORTRAIT;
 
-    /**
-     * Key for accessing an array.
-     */
     public static final String IMAGES_RESOURCES = "images";
 
-    /**
-     * Instance the recyclerView.
-     */
+    public static final String POSITION = "position";
+
     private RecyclerView recyclerView;
+
+    private TextView textView;
+
+    private Button reloadButton;
 
     /**
      * Download limit.
      */
     private final Integer limit = 100;
 
-    /**
-     * Full link to the public folder.
-     */
     private String pathToDownload;
 
-    /**
-     * An array from the images.
-     */
     private ArrayList<ImageYandexDisk> images = new ArrayList<>();
-
-    /**
-     * Instance the textView.
-     */
-    private TextView textView;
-
-    /**
-     * Button to reload.
-     */
-    private Button reloadButton;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -104,9 +85,8 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         if (savedInstanceState != null) {
             images = savedInstanceState.getParcelableArrayList(IMAGES_RESOURCES);
         }
-        init(images);
 
-        addOnItemTouchListener();
+        init(images);
     }
 
     /**
@@ -120,9 +100,6 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         }
     }
 
-    /**
-     * InitRecycleView.
-     */
     private void initRecycleView() {
         RecyclerView.LayoutManager mLayoutManager =
                 new GridLayoutManager(getApplicationContext(), spanCount);
@@ -146,15 +123,11 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
             }
         } else {
             recyclerView.setAdapter(
-                    new GalleryAdapter(getApplicationContext(), getImagesURL(img))
+                    new GalleryAdapter(getApplicationContext(), getImagesURL(img), this)
             );
         }
     }
 
-    /**
-     * Reload download.
-     * @param view view.
-     */
     public void reloadDownload(final View view) {
         if (InternetConnection.hasConnection(this)) {
             textView.setVisibility(View.GONE);
@@ -166,11 +139,6 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         }
     }
 
-    /**
-     * Get imagesURL
-     * @param img array from the images.
-     * @return list.
-     */
     private ArrayList<String> getImagesURL(final ArrayList<ImageYandexDisk> img) {
         if (img == null) {
             return new ArrayList<>();
@@ -184,9 +152,6 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         return imagesURL;
     }
 
-    /**
-     * Download the list of images.
-     */
     private void download() {
         IApiGenerationLink yd = new YandexDisk();
         pathToDownload = yd.getPublicLink(PUBLIC_FOLDER_URL,
@@ -205,15 +170,11 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
     public void response(final ArrayList<ImageYandexDisk> response) {
         images = response;
         recyclerView.setAdapter(
-                new GalleryAdapter(getApplicationContext(), getImagesURL(response))
+                new GalleryAdapter(getApplicationContext(), getImagesURL(response), this)
         );
         listIsEmpty(response);
     }
 
-    /**
-     * Error message.
-     * @param message message about errors.
-     */
     @Override
     public void errorMessage(final String message) {
         textView = findViewById(R.id.message);
@@ -221,10 +182,6 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         textView.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * Check for empty list.
-     * @param img array from the images.
-     */
     private void listIsEmpty(final ArrayList<ImageYandexDisk> img) {
         if (img.isEmpty()) {
             textView = findViewById(R.id.message);
@@ -233,45 +190,18 @@ public class MainActivity extends AppCompatActivity implements IResponseCallback
         }
     }
 
-    /**
-     * RecyclerView on item touch listener.
-     */
-    private void addOnItemTouchListener() {
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(
-                getApplicationContext(), recyclerView, new IClickListener() {
-            /**
-             * Onclick.
-             * @param view view.
-             * @param position position number.
-             */
-            @Override
-            public void onClick(final View view, final int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(IMAGES_RESOURCES, images);
-                bundle.putInt("position", position);
+    @Override
+    public void itemOnClick(final int position) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IMAGES_RESOURCES, images);
+        bundle.putInt(POSITION, position);
 
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                SlideshowDialogFragment newFragment = SlideshowDialogFragment.newInstance();
-                newFragment.setArguments(bundle);
-                newFragment.show(ft, "slideshow");
-            }
-
-            /**
-             * On long click.
-             * @param view view.
-             * @param position position number.
-             */
-            @Override
-            public void onLongClick(final View view, final int position) {
-
-            }
-        }));
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        SlideshowDialogFragment newFragment = SlideshowDialogFragment.newInstance();
+        newFragment.setArguments(bundle);
+        newFragment.show(ft, "slideshow");
     }
 
-    /**
-     * On save instance state.
-     * @param outState bundle.
-     */
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);

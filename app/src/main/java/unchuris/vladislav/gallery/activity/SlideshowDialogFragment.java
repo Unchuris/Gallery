@@ -26,19 +26,11 @@ import unchuris.vladislav.gallery.model.ImageYandexDisk;
  * DialogFragment for display image in full screen.
  */
 public class SlideshowDialogFragment extends DialogFragment  {
-    /**
-     * Instantiate the viewPager.
-     */
+
     private ViewPager viewPager;
 
-    /**
-     * An array from the images.
-     */
     private ArrayList<ImageYandexDisk> images;
 
-    /**
-     * Instantiate the viewPagerAdapter.
-     */
     private ViewPagerAdapter viewPagerAdapter;
 
     /**
@@ -51,15 +43,8 @@ public class SlideshowDialogFragment extends DialogFragment  {
      */
     private static final Integer RESIZING = 1024;
 
-    /**
-     * Selected position.
-     */
     private int selectedPosition = 0;
 
-    /**
-     * Get new Instance.
-     * @return instance.
-     */
     static SlideshowDialogFragment newInstance() {
         return new SlideshowDialogFragment();
     }
@@ -83,7 +68,7 @@ public class SlideshowDialogFragment extends DialogFragment  {
             images = (ArrayList<ImageYandexDisk>) getArguments().getSerializable(MainActivity.IMAGES_RESOURCES);
         }
 
-        selectedPosition = getArguments() != null ? getArguments().getInt("position") : 0;
+        selectedPosition = getArguments() != null ? getArguments().getInt(MainActivity.POSITION) : 0;
 
         ArrayList<String> imagesURL = new ArrayList<>();
 
@@ -108,36 +93,21 @@ public class SlideshowDialogFragment extends DialogFragment  {
         return v;
     }
 
-    /**
-     * Set current item.
-     * @param position position number.
-     */
     private void setCurrentItem(final int position) {
         viewPager.setCurrentItem(position, false);
         displayNumber(selectedPosition);
     }
 
-    /**
-     * Shows the number of images and the total number.
-     * @param position position number.
-     */
     private void displayNumber(final int position) {
         lblCount.setText((position + 1) + " " + getString(R.string.of) + " " + images.size());
     }
 
-    /**
-     * OnCreate.
-     * @param savedInstanceState saved instance state.
-     */
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
     }
 
-    /**
-     * On page change listener.
-     */
     private ViewPager.OnPageChangeListener viewPagerPageChangeListener =
             new ViewPager.OnPageChangeListener() {
 
@@ -158,11 +128,6 @@ public class SlideshowDialogFragment extends DialogFragment  {
         }
     };
 
-    /**
-     * Show alertDialog.
-     * @param context context.
-     * @param imageYandexDisk image.
-     */
     private void showAlert(final Context context, final ImageYandexDisk imageYandexDisk) {
         Integer style = android.R.style.Theme_Holo_Dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(context, style);
@@ -178,11 +143,6 @@ public class SlideshowDialogFragment extends DialogFragment  {
         alert.show();
     }
 
-    /**
-     * Get meta-information.
-     * @param image image.
-     * @return image info.
-     */
     private String getInfo(final ImageYandexDisk image) {
         DateTimeFormatter longDate = DateTimeFormat.forPattern("d MMMM yyyy");
         String newLine = "\n\n";
@@ -194,10 +154,6 @@ public class SlideshowDialogFragment extends DialogFragment  {
                 ;
     }
 
-    /**
-     * Share url.
-     * @param url string.
-     */
     private void share(final String url) {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, url);

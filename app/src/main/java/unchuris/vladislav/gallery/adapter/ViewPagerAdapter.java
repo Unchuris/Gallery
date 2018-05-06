@@ -18,35 +18,16 @@ import unchuris.vladislav.gallery.R;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-/**
- * ViewPagerAdapter.
- */
 public class ViewPagerAdapter extends PagerAdapter {
-    /**
-     * An array from the list of links on the images.
-     */
+
     private ArrayList<String> imagesURL;
 
-    /**
-     * Context.
-     */
     private Context context;
 
-    /**
-     * Size of thumbnail relative to original size.
-     */
     private final float thumbnailSize = 0.1f;
 
-    /**
-     * Instantiate the LayoutInflater.
-     */
     private LayoutInflater layoutInflater;
 
-    /**
-     * Constructor.
-     * @param context context.
-     * @param images array list of links on images.
-     */
     public ViewPagerAdapter(final Context context, final ArrayList<String> images) {
         imagesURL = images;
         this.context = context;
@@ -80,10 +61,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         return view;
     }
 
-    /**
-     * Get item count.
-     * @return size.
-     */
     @Override
     public int getCount() {
         return imagesURL.size();
@@ -101,12 +78,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         return view == obj;
     }
 
-    /**
-     * Removes the page from the container for the given position.
-     * @param container viewGroup.
-     * @param position position number.
-     * @param object object.
-     */
     @Override
     public void destroyItem(@NonNull final ViewGroup container,
                             final int position,

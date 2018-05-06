@@ -20,12 +20,6 @@ public class ParsingResponse implements IParsing<ImageYandexDisk> {
      */
     private static final DateTimeFormatter DATE_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
 
-    /**
-     *
-     * @param response response in json object format.
-     * @return ArrayList<ImageYandexDisk> for images.
-     * @throws JSONException indicates that some exception happened during JSON processing.
-     */
     public ArrayList<ImageYandexDisk> imageListParser(final JSONObject response) throws JSONException {
         ArrayList<ImageYandexDisk> imageList = new ArrayList<>();
         JSONObject embedded = response.getJSONObject("_embedded");
@@ -37,12 +31,6 @@ public class ParsingResponse implements IParsing<ImageYandexDisk> {
         return imageList;
     }
 
-    /**
-     *
-     * @param response response in json object format.
-     * @return ImageYandexDisk model.
-     * @throws JSONException indicates that some exception happened during JSON processing.
-     */
     public ImageYandexDisk imageParse(final JSONObject response) throws JSONException {
         ImageYandexDisk image = new ImageYandexDisk();
         image.setName(response.getString("name"));
@@ -55,22 +43,10 @@ public class ParsingResponse implements IParsing<ImageYandexDisk> {
         return image;
     }
 
-    /**
-     *
-     * @param response response in json object format.
-     * @return url to download.
-     * @throws JSONException indicates that some exception happened during JSON processing.
-     */
     public String getDownloadUrlParse(final JSONObject response) throws JSONException {
         return response.getString("href");
     }
 
-    /**
-     *
-     * @param response response in json object format.
-     * @return error message.
-     * @throws JSONException indicates that some exception happened during JSON processing.
-     */
     public String errorParse(final JSONObject response) throws JSONException {
         return response.getString("error") + ": "
                 + response.getString("description");

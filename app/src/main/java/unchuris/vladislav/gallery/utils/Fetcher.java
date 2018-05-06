@@ -13,49 +13,26 @@ import org.json.JSONObject;
 
 import unchuris.vladislav.gallery.R;
 import unchuris.vladislav.gallery.api.IParsing;
-import unchuris.vladislav.gallery.app.AppController;
+import unchuris.vladislav.gallery.app.GalleryApplication;
 
-/**
- * Fetcher.
- * @param <T> model.
- */
 public class Fetcher<T> {
     /**
      * Log tag.
      */
     private static final String TAG = Fetcher.class.getSimpleName();
 
-    /**
-     * Instance the callback.
-     */
     private IResponseCallback<T> callback;
 
-    /**
-     * Progress dialog.
-     */
     private ProgressDialog pDialog;
 
-    /**
-     * Context.
-     */
     private Context context;
 
-    /**
-     * Constructor.
-     * @param context context.
-     * @param callback callback.
-     */
     public Fetcher(final Context context, final IResponseCallback<T> callback) {
         this.callback = callback;
         pDialog = new ProgressDialog(context);
         this.context = context;
     }
 
-    /**
-     * Fetch images.
-     * @param pathToDownload path for querying.
-     * @param parsing parse the response as json.
-     */
     public void fetchImages(final String pathToDownload, final IParsing<T> parsing) {
         pDialog.setMessage("Downloading json...");
         pDialog.show();
@@ -81,6 +58,6 @@ public class Fetcher<T> {
                 pDialog.hide();
             }
         });
-        AppController.getInstance().addToRequestQueue(req);
+        GalleryApplication.getInstance().addToRequestQueue(req);
     }
 }

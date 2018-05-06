@@ -10,9 +10,6 @@ import static junit.framework.Assert.assertTrue;
 
 public class ImageYandexDiskTest {
 
-    /**
-     * GenerationLink.
-     */
     private ImageYandexDisk image;
 
     /**

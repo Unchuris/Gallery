@@ -9,9 +9,6 @@ import static junit.framework.Assert.assertEquals;
 
 public class YandexDiskTest {
 
-    /**
-     * GenerationLink.
-     */
     private IApiGenerationLink generationLink;
 
 

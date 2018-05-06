@@ -15,76 +15,58 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import unchuris.vladislav.gallery.R;
+import unchuris.vladislav.gallery.utils.IOnClickItem;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-/**
- * GalleryAdapter.
- */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
-    /**
-     * An array from the list of links on the images.
-     */
+
     private ArrayList<String> imagesURL;
 
-    /**
-     * Context.
-     */
     private Context context;
 
-    /**
-     * Size of thumbnail relative to original size.
-     */
     private final float thumbnailSize = 0.1f;
+
+    private IOnClickItem callback;
 
     /**
      * Provide a reference to the views for each data item.
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-        /**
-         * ImageView.
-         */
+
         public ImageView thumbnail;
 
-        /**
-         * Constructor.
-         * @param view view.
-         */
         public ViewHolder(final View view) {
             super(view);
             thumbnail = view.findViewById(R.id.thumbnail);
         }
     }
 
-    /**
-     * Constructor.
-     * @param context context.
-     * @param images array list of links on images.
-     */
-    public GalleryAdapter(final Context context, final ArrayList<String> images) {
+    public GalleryAdapter(final Context context, final ArrayList<String> images,
+                          final IOnClickItem callback) {
         this.context = context;
         this.imagesURL = images;
+        this.callback = callback;
     }
 
-    /**
-     * Create new views (invoked by the layout manager).
-     * @param parent ViewGroup.
-     * @param viewType view type.
-     * @return ViewHolder.
-     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.gallery_thumbnail, parent, false);
-        return new ViewHolder(itemView);
+        ViewHolder viewHolder = new ViewHolder(itemView);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Integer position = viewHolder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    callback.itemOnClick(position);
+                }
+            }
+        });
+        return viewHolder;
     }
 
-    /**
-     * Replace the contents of a view (invoked by the layout manager).
-     * @param holder holder.
-     * @param position position.
-     */
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Glide.with(context)
@@ -97,10 +79,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 .into(holder.thumbnail);
     }
 
-    /**
-     * Get item count.
-     * @return size.
-     */
     @Override
     public int getItemCount() {
         return imagesURL.size();
